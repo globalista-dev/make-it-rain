@@ -3,7 +3,7 @@
 	"package": "com.globalista.makeitrain.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"WeatherRendererMixin"
+		"WorldRendererMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
