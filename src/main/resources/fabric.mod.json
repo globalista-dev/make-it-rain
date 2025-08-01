@@ -2,7 +2,7 @@
 	"schemaVersion": 1,
 	"id": "make-it-rain",
 	"version": "${version}",
-	"name": "Make it Rain!",
+	"name": "Make It Rain!",
 	"description": "Client-side mod that adds rain to normally dry Overworld biomes",
 	"authors": [
 		"yGlobalista"

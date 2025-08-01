@@ -1,5 +1,7 @@
 package com.globalista.makeitrain.mixin;
 
+import com.globalista.makeitrain.Config;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.render.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -10,8 +12,13 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
+import java.io.File;
+
 @Mixin(WeatherRendering.class)
 public abstract class WeatherRendererMixin {
+
+	private File configFile = FabricLoader.getInstance().getConfigDir().resolve("make-it-rain.json").toFile();
+	private Config config = Config.loadConfigFile(configFile);
 
 	@Invoker("getPrecipitationAt")
 	public abstract Biome.Precipitation invokeGetPrecipitationAt(World world, BlockPos pos);
@@ -40,9 +47,18 @@ public abstract class WeatherRendererMixin {
 )
 	private Biome.Precipitation redirectGetPrecipitationAtForSounds(WeatherRendering instance, World world, BlockPos pos) {
 		Biome.Precipitation original = invokeGetPrecipitationAt(world, pos);
-		if (original == Biome.Precipitation.NONE && world.getRegistryKey() == World.OVERWORLD) {
-			return Biome.Precipitation.RAIN;
+
+		if (original == Biome.Precipitation.NONE) {
+
+			if (config.registryKeyEnable && world.getRegistryKey() == World.OVERWORLD) {
+				return Biome.Precipitation.RAIN;
+			} else if (!config.registryKeyEnable && world.getDimension().hasSkyLight()) {
+				return Biome.Precipitation.RAIN;
+			}
+			return original;
+
 		}
+
 		return original;
 	}
 

@@ -5,8 +5,11 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.loader.api.FabricLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.File;
 
 @Environment(EnvType.CLIENT)
 public class MakeItRain implements ClientModInitializer {
@@ -15,6 +18,11 @@ public class MakeItRain implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		LOGGER.info("Make it Rain!");
+		File configFile = FabricLoader.getInstance().getConfigDir().resolve("make-it-rain.json").toFile();
+		Config config = Config.loadConfigFile(configFile);
+		config.saveConfigFile(configFile);
+
+		LOGGER.info("Make It Rain!");
+
 	}
 }
