@@ -1,0 +1,14 @@
+{
+	"required": true,
+	"package": "com.globalista.makeitrain.mixin",
+	"compatibilityLevel": "JAVA_21",
+	"mixins": [
+		"WeatherRendererMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}
