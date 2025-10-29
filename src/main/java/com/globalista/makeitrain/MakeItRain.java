@@ -18,11 +18,6 @@ public class MakeItRain implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		File configFile = FabricLoader.getInstance().getConfigDir().resolve("make-it-rain.json").toFile();
-		Config config = Config.loadConfigFile(configFile);
-		config.saveConfigFile(configFile);
-
-		LOGGER.info("Make It Rain!");
-
+        LOGGER.info("Make It Rain!");
 	}
 }
